@@ -19,7 +19,7 @@ export interface Config {
 }
 
 const defaultConfig: Partial<Config> = {
-  defaultHeartbeatIntervalSec: 30,
+  defaultHeartbeatIntervalSec: 100000,
   chargePointVendor: "Test",
   chargePointModel: "1",
   startDelayMs: 8 * 1000,
@@ -96,14 +96,15 @@ export class ChargerSimulator {
       this.centralSystem = remote
     }
 
-    if (this.config.defaultHeartbeatIntervalSec) {
-      setInterval(() => {
-        this.centralSystem.Heartbeat()
-      }, this.config.defaultHeartbeatIntervalSec * 1000)
-    }
+    // if (this.config.defaultHeartbeatIntervalSec) {
+    //   setInterval(() => {
+    //     this.centralSystem.Heartbeat()
+    //   }, this.config.defaultHeartbeatIntervalSec * 1000)
+    // }
   }
 
   public startTransaction({connectorId, idTag}, delay) {
+    connectorId = 1
     if (this.meterTimer) {
       return false
     }
