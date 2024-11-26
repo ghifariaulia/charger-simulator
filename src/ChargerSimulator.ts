@@ -1,6 +1,6 @@
 import {createRpcClient} from "@push-rpc/core"
 import {wrapWebsocket} from "@push-rpc/websocket/dist/server"
-import * as WebSocket from "ws"
+import WebSocket from "ws"
 import {log} from "./log"
 import {createCentralSystemClient, createChargePointServer} from "./soap/ocppSoap"
 
@@ -56,7 +56,6 @@ export class ChargerSimulator {
       log.info(`Will send messages to Central System at ${this.config.centralSystemEndpoint}`)
     } else {
       const {remote} = await createRpcClient(
-        0,
         async () => {
           ws = new WebSocket(
             this.config.centralSystemEndpoint + "/" + this.config.chargerIdentity,
@@ -215,6 +214,14 @@ export class ChargerSimulator {
         }
       }
 
+      return {status: "Accepted"}
+    },
+
+    ChangeAvailability: async(req) => {
+      return {status: "Accepted"}
+    },
+
+    ClearCache: async(req) => {
       return {status: "Accepted"}
     },
 
